@@ -12,20 +12,22 @@ app.use(jsonParser());
 
 const mongoose = require("mongoose");
 
+mongoose.connect("mongodb://localhost:27017/qa");
+
 const db = mongoose.connection;
 
 db.on("error", function(err){
-	console.error("connection error: ", err);
+	console.error("connection error:", err);
 });
 
-db.once("open", function () {
+db.once("open", function(){
 	console.log("db connection successful");
 });
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next){
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	if (req.method === "OPTIONS") {
+	if(req.method === "OPTIONS") {
 		res.header("Access-Control-Allow-Methods", "PUT,POST,DELETE");
 		return res.status(200).json({});
 	}
@@ -34,15 +36,16 @@ app.use(function (req, res, next) {
 
 app.use("/questions", routes);
 
-// Catch 404 and forward error handler
-app.use(function (req, res, next) {
+// catch 404 and forward to error handler
+app.use(function(req, res, next){
 	const err = new Error("Not Found");
 	err.status = 404;
 	next(err);
 });
 
 // Error Handler
-app.use(function (err, req, res, next) {
+
+app.use(function(err, req, res, next){
 	res.status(err.status || 500);
 	res.json({
 		error: {
@@ -53,6 +56,21 @@ app.use(function (err, req, res, next) {
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function () {
+app.listen(port, function(){
 	console.log("Express server is listening on port", port);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

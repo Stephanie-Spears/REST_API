@@ -1,9 +1,10 @@
 'use strict';
 
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 
-const sortAnswers = function (a, b) {
+const sortAnswers = function(a, b) {
 	//- negative a before b
 	//0 no change
 	//+ positive a after b
@@ -11,7 +12,7 @@ const sortAnswers = function (a, b) {
 		return b.updatedAt - a.updatedAt;
 	}
 	return b.votes - a.votes;
-};
+}
 
 const AnswerSchema = new Schema({
 	text: String,
@@ -20,15 +21,15 @@ const AnswerSchema = new Schema({
 	votes: {type: Number, default:0}
 });
 
-AnswerSchema.method("update", function (updates, callback) {
+AnswerSchema.method("update", function(updates, callback) {
 	Object.assign(this, updates, {updatedAt: new Date()});
 	this.parent().save(callback);
 });
 
-AnswerSchema.method("vote", function (vote, callback) {
-	if (vote === "up") {
+AnswerSchema.method("vote", function(vote, callback) {
+	if(vote === "up") {
 		this.votes += 1;
-	} else{
+	} else {
 		this.votes -= 1;
 	}
 	this.parent().save(callback);
@@ -40,7 +41,7 @@ const QuestionSchema = new Schema({
 	answers: [AnswerSchema]
 });
 
-QuestionSchema.pre("save", function (next) {
+QuestionSchema.pre("save", function(next){
 	this.answers.sort(sortAnswers);
 	next();
 });
@@ -48,3 +49,16 @@ QuestionSchema.pre("save", function (next) {
 const Question = mongoose.model("Question", QuestionSchema);
 
 module.exports.Question = Question;
+
+
+
+
+
+
+
+
+
+
+
+
+
