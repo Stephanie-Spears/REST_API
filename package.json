@@ -1,0 +1,25 @@
+{
+  "name": "rest_api",
+  "version": "1.0.0",
+  "description": "\"A REST API test\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stephanie-Spears/REST_API.git"
+  },
+  "author": "Stephanie Spears",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stephanie-Spears/REST_API/issues"
+  },
+  "homepage": "https://github.com/Stephanie-Spears/REST_API#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.18",
+    "morgan": "^1.9.0"
+  }
+}
